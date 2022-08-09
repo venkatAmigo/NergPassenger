@@ -96,6 +96,7 @@ class Api {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle("Error No data")
                     builder.setMessage(httpURLConnection.responseMessage)
+                    builder.setPositiveButton("Ok",null)
                     builder.show()
                 }
             }
@@ -125,7 +126,7 @@ class Api {
             outputStream.flush()
 
             val responseCode = httpURLConnection.responseCode
-            if (responseCode == HttpURLConnection.HTTP_OK) {
+            if (responseCode == HttpURLConnection.HTTP_CREATED) {
                 response = httpURLConnection.inputStream.bufferedReader(
                     StandardCharsets
                         .UTF_8
@@ -137,6 +138,7 @@ class Api {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle("Success")
                     builder.setMessage(httpURLConnection.responseMessage)
+                    builder.setPositiveButton("Ok",null)
                     builder.show()
                 }
                 return response
@@ -189,6 +191,7 @@ class Api {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle("Success")
                     builder.setMessage(httpURLConnection.responseMessage)
+                    builder.setPositiveButton("Ok",null)
                     builder.show()
                 }
                 return response
@@ -197,6 +200,7 @@ class Api {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle("Error")
                     builder.setMessage(httpURLConnection.responseMessage)
+                    builder.setPositiveButton("Ok",null)
                     builder.show()
                 }
             }
@@ -209,13 +213,14 @@ class Api {
             val httpURLConnection = url.openConnection() as HttpURLConnection
             httpURLConnection.requestMethod = "GET"
             httpURLConnection.doInput = true
-            httpURLConnection.doOutput = true
+            httpURLConnection.doOutput = false
             httpURLConnection.setRequestProperty("Accept", "application/json")
             httpURLConnection.setRequestProperty("Content-Type", "application/json")
             httpURLConnection.setRequestProperty("Authorization", "Bearer $token")
 
             val responseCode = httpURLConnection.responseCode
-            if (responseCode == HttpURLConnection.HTTP_CREATED) {
+            Log.i("RESPONSE",responseCode.toString())
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 response = httpURLConnection.inputStream.bufferedReader(
                     StandardCharsets
                         .UTF_8
@@ -224,10 +229,12 @@ class Api {
                 }
                 return response
             } else {
+
                 Handler(Looper.getMainLooper()).post {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle("Error")
                     builder.setMessage(httpURLConnection.responseMessage)
+                    builder.setPositiveButton("Ok",null)
                     builder.show()
                 }
             }

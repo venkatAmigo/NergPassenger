@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
@@ -25,7 +26,8 @@ class SplashActivity : AppCompatActivity() {
         }
         val sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE)
         val isLogin = sharedPreferences.getBoolean(Constants.IS_LOGIN, false)
-
+        val accessToken = sharedPreferences.getString(Constants.ACCESS_TOKEN,"")
+        accessToken?.let { Log.i("token", it) }
         Handler(mainLooper).postDelayed({
             if (isLogin) {
                 startActivity(Intent(this, MainActivity::class.java))

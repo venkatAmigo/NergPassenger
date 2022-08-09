@@ -17,12 +17,12 @@ class RegistrationActivity : AppCompatActivity() {
     var valid = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding =  ActivityRegistrationBinding.inflate(layoutInflater)
+        binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
         binding.login.setOnClickListener {
-            startActivity(Intent(this,RegistrationActivity::class.java))
+            startActivity(Intent(this, RegistrationActivity::class.java))
         }
         fieldValidation()
 
@@ -30,15 +30,16 @@ class RegistrationActivity : AppCompatActivity() {
             val username = binding.usernameTl.editText?.text.toString()
             val password = binding.pwdTl.editText?.text.toString()
             val confirm_pwd = binding.confPwdTl.editText?.text.toString()
-            if(username.isNullOrBlank() || password .isNullOrBlank() || confirm_pwd.isNullOrBlank()){
+            if (username.isNullOrBlank() || password.isNullOrBlank() || confirm_pwd.isNullOrBlank()) {
 
-            }else{
-                registerUser(username,password)
+            } else {
+                registerUser(username, password)
             }
         }
 
     }
-    fun registerUser(username:String, password:String){
+
+    fun registerUser(username: String, password: String) {
         Thread {
             val response = Api.register(username, password)
             if (response == 1) {
@@ -57,35 +58,36 @@ class RegistrationActivity : AppCompatActivity() {
             }
         }.start()
     }
-    fun fieldValidation(){
+
+    fun fieldValidation() {
         binding.pwdTl.editText?.doOnTextChanged { text, start, before, count ->
-            if(text.toString().length < 8){
+            if (text.toString().length < 8) {
                 binding.pwdTl.isErrorEnabled = true
-                binding.pwdTl.error ="Password should contain minimum 8 characters"
-            }else if(text.isNullOrBlank()){
+                binding.pwdTl.error = "Password should contain minimum 8 characters"
+            } else if (text.isNullOrBlank()) {
                 binding.pwdTl.isErrorEnabled = true
-                binding.pwdTl.error ="Please enter password"
-            }else{
+                binding.pwdTl.error = "Please enter password"
+            } else {
                 binding.pwdTl.isErrorEnabled = false
             }
         }
         binding.confPwdTl.editText?.doOnTextChanged { text, start, before, count ->
-            if(!text.toString().equals(binding.pwdTl.editText?.text.toString())){
+            if (!text.toString().equals(binding.pwdTl.editText?.text.toString())) {
                 binding.confPwdTl.isErrorEnabled = true
-                binding.confPwdTl.error ="Password and confirm password should be same"
-            }else if(text.isNullOrBlank()){
+                binding.confPwdTl.error = "Password and confirm password should be same"
+            } else if (text.isNullOrBlank()) {
                 binding.confPwdTl.isErrorEnabled = true
-                binding.confPwdTl.error ="Please enter confirm password"
-            }else{
+                binding.confPwdTl.error = "Please enter confirm password"
+            } else {
                 binding.confPwdTl.isErrorEnabled = false
 
             }
         }
         binding.usernameTl.editText?.doOnTextChanged { text, start, before, count ->
-            if(text.isNullOrBlank()){
+            if (text.isNullOrBlank()) {
                 binding.usernameTl.isErrorEnabled = true
-                binding.usernameTl.error ="Please enter username"
-            }else{
+                binding.usernameTl.error = "Please enter username"
+            } else {
                 binding.usernameTl.isErrorEnabled = false
             }
         }

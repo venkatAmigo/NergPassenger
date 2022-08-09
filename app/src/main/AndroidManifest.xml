@@ -18,11 +18,11 @@
         <activity
             android:name=".RegistrationActivity"
             android:exported="false"
-            android:theme="@style/BeginScreens"/>
+            android:theme="@style/BeginScreens" />
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:theme="@style/BeginScreens"/>
+            android:theme="@style/BeginScreens" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -36,6 +36,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
+            android:configChanges="orientation|screenSize|screenLayout"
             android:theme="@style/BeginScreens"/>
     </application>
 
