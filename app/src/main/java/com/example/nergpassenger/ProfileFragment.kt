@@ -82,11 +82,7 @@ class ProfileFragment : Fragment() {
         save.setOnClickListener {
             if(checkAgeLimit(birthdate.editText?.text.toString()))
             {
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("Age Error")
-                builder.setMessage("Age should be at least 14")
-                builder.setPositiveButton("Ok",null)
-                builder.show()
+                context?.let { it1 -> AlertHelper.showAlert(it1,"Age Error","Age should be at least 14") }
 
             }else if(personalValid){
                 Thread {
@@ -106,11 +102,7 @@ class ProfileFragment : Fragment() {
             if(cardEt.editText?.text.toString().isBlank() || expirationEt.editText?.text
                     .toString().isBlank() || codeEt.editText?.text.toString().isBlank
                     ()){
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("Enter All fields")
-                builder.setMessage("Please enter all the fields")
-                builder.setPositiveButton("Ok",null)
-                builder.show()
+                context?.let { it1 -> AlertHelper.showAlert(it1,"Enter All fields","Please enter all the fields") }
             }else if(valid){
                 Thread {
                     val response = accessToken?.let { it1 ->

@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.example.nergpassenger.AlertHelper
 import org.json.JSONObject
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
@@ -14,7 +15,6 @@ import java.nio.charset.StandardCharsets
 class Api {
     companion object {
         fun register(username: String, password: String): Int {
-            var response = ""
             val url = URL("http://10.0.2.2:3000/auth/register")
             val httpURLConnection = url.openConnection() as HttpURLConnection
             httpURLConnection.requestMethod = "POST"
@@ -64,7 +64,7 @@ class Api {
                     it.readText()
                 }
                 return response
-            }else{
+            } else {
                 return "INVALID"
             }
         }
@@ -88,16 +88,16 @@ class Api {
                 ).use {
                     it.readText()
                 }
-                Log.i("response",response.toString())
+                Log.i("response", response.toString())
                 return response
             } else {
                 Handler(Looper.getMainLooper()).post {
-                    Log.i("response",httpURLConnection.responseCode.toString())
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Error No data")
-                    builder.setMessage(httpURLConnection.responseMessage)
-                    builder.setPositiveButton("Ok",null)
-                    builder.show()
+                    Log.i("response", httpURLConnection.responseCode.toString())
+                    AlertHelper.showAlert(
+                        context,
+                        "Error No data",
+                        httpURLConnection.responseMessage
+                    )
                 }
             }
             return response
@@ -134,29 +134,21 @@ class Api {
                     it.readText()
                 }
                 Handler(Looper.getMainLooper()).post {
-                    Log.i("response",httpURLConnection.responseCode.toString())
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Success")
-                    builder.setMessage(httpURLConnection.responseMessage)
-                    builder.setPositiveButton("Ok",null)
-                    builder.show()
+                    Log.i("response", httpURLConnection.responseCode.toString())
+                    AlertHelper.showAlert(context, "Success", httpURLConnection.responseMessage)
                 }
                 return response
             } else {
                 Handler(Looper.getMainLooper()).post {
-                    Log.i("response",httpURLConnection.responseCode.toString())
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Error")
-
-                    builder.setMessage(httpURLConnection.responseMessage)
-                    builder.show()
+                    Log.i("response", httpURLConnection.responseCode.toString())
+                    AlertHelper.showAlert(context, "Error", httpURLConnection.responseMessage)
                 }
             }
             return response
         }
 
         fun updatePaymentDetails(
-            cardType: String, cardNumber: String, cardExpiration: String,cardSecurityCode:String,
+            cardType: String, cardNumber: String, cardExpiration: String, cardSecurityCode: String,
             token: String, context: Context
         ): String {
             var response = ""
@@ -187,21 +179,14 @@ class Api {
                     it.readText()
                 }
                 Handler(Looper.getMainLooper()).post {
-                    Log.i("response",httpURLConnection.responseCode.toString())
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Success")
-                    builder.setMessage(httpURLConnection.responseMessage)
-                    builder.setPositiveButton("Ok",null)
-                    builder.show()
+                    Log.i("response", httpURLConnection.responseCode.toString())
+                    AlertHelper.showAlert(context, "Success", httpURLConnection.responseMessage)
                 }
                 return response
             } else {
                 Handler(Looper.getMainLooper()).post {
                     val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Error")
-                    builder.setMessage(httpURLConnection.responseMessage)
-                    builder.setPositiveButton("Ok",null)
-                    builder.show()
+                    AlertHelper.showAlert(context, "Error", httpURLConnection.responseMessage)
                 }
             }
             return response
@@ -219,7 +204,7 @@ class Api {
             httpURLConnection.setRequestProperty("Authorization", "Bearer $token")
 
             val responseCode = httpURLConnection.responseCode
-            Log.i("RESPONSE",responseCode.toString())
+            Log.i("RESPONSE", responseCode.toString())
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 response = httpURLConnection.inputStream.bufferedReader(
                     StandardCharsets
@@ -229,13 +214,8 @@ class Api {
                 }
                 return response
             } else {
-
                 Handler(Looper.getMainLooper()).post {
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Error")
-                    builder.setMessage(httpURLConnection.responseMessage)
-                    builder.setPositiveButton("Ok",null)
-                    builder.show()
+                    AlertHelper.showAlert(context, "Error", httpURLConnection.responseMessage)
                 }
             }
             return response
