@@ -1,11 +1,13 @@
 package com.example.nergpassenger.adapters
 
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.nergpassenger.ProfileFragment
 import com.example.nergpassenger.TicketsFragment
+
 
 class PagerAdapter(fragmentManager: FragmentManager,lifecycle: Lifecycle): FragmentStateAdapter
     (fragmentManager,lifecycle) {
@@ -14,10 +16,10 @@ class PagerAdapter(fragmentManager: FragmentManager,lifecycle: Lifecycle): Fragm
     }
 
     override fun createFragment(position: Int): Fragment {
-        when(position){
+       return when(position){
             0-> return TicketsFragment()
             1-> return ProfileFragment()
-        }
-        return TicketsFragment()
+           else -> TicketsFragment()
+       }
     }
 }

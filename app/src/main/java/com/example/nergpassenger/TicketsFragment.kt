@@ -23,13 +23,16 @@ import org.json.JSONObject
 class TicketsFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
+    lateinit var adapter: TicketsAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_tickets, container, false)
-        recyclerView = view.findViewById<RecyclerView>(R.id.tickets_recycler)
+        recyclerView = view.findViewById(R.id.tickets_recycler)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,
+            false)
         getTicketsData()
         return view
     }
@@ -45,16 +48,14 @@ class TicketsFragment : Fragment() {
                     it1,requireContext()
                 )
             }
-            Log.i("response",response.toString())
             if(!response.isNullOrBlank()) {
                 var obj = JSONArray(response.toString())
                 val tickets = Json.decodeFromString<List<Ticket>>(obj.toString())
                 val newTickets = tickets.sortedByDescending { t -> t.travelDate }
                 Log.i("TICKETS",tickets[1].toString())
                 Handler(Looper.getMainLooper()).post{
-                    recyclerView.layoutManager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,
-                        false)
-                    recyclerView.adapter = TicketsAdapter(newTickets)
+                    adapter = TicketsAdapter(newTickets)
+                    recyclerView.adapter = adapter
                 }
 
             }

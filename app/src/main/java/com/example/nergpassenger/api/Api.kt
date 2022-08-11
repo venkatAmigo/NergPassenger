@@ -192,7 +192,7 @@ class Api {
             return response
         }
 
-        fun getUserTickets(token: String, context: Context): String {
+        fun  getUserTickets(token: String, context: Context): String {
             var response = ""
             val url = URL("http://10.0.2.2:3000/users/me/tickets")
             val httpURLConnection = url.openConnection() as HttpURLConnection
@@ -202,6 +202,62 @@ class Api {
             httpURLConnection.setRequestProperty("Accept", "application/json")
             httpURLConnection.setRequestProperty("Content-Type", "application/json")
             httpURLConnection.setRequestProperty("Authorization", "Bearer $token")
+
+            val responseCode = httpURLConnection.responseCode
+            Log.i("RESPONSE", responseCode.toString())
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                response = httpURLConnection.inputStream.bufferedReader(
+                    StandardCharsets
+                        .UTF_8
+                ).use {
+                    it.readText()
+                }
+                return response
+            } else {
+                Handler(Looper.getMainLooper()).post {
+                    AlertHelper.showAlert(context, "Error", httpURLConnection.responseMessage)
+                }
+            }
+            return response
+        }
+        fun  getStations(context: Context): String {
+            var response = ""
+            var url= URL("http://10.0.2.2:3000/stations")
+
+            val httpURLConnection = url.openConnection() as HttpURLConnection
+            httpURLConnection.requestMethod = "GET"
+            httpURLConnection.doInput = true
+            httpURLConnection.doOutput = false
+
+            val responseCode = httpURLConnection.responseCode
+            Log.i("RESPONSE", responseCode.toString())
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                response = httpURLConnection.inputStream.bufferedReader(
+                    StandardCharsets
+                        .UTF_8
+                ).use {
+                    it.readText()
+                }
+                return response
+            } else {
+                Handler(Looper.getMainLooper()).post {
+                    AlertHelper.showAlert(context, "Error", httpURLConnection.responseMessage)
+                }
+            }
+            return response
+        }
+
+        fun  getLines(context: Context, line : String?=""): String {
+            var response = ""
+            var url: URL = if(line != ""){
+                URL("http://10.0.2.2:3000/lines/$line")
+            }else{
+                URL("http://10.0.2.2:3000/lines")
+            }
+            val httpURLConnection = url.openConnection() as HttpURLConnection
+            httpURLConnection.requestMethod = "GET"
+            httpURLConnection.doInput = true
+            httpURLConnection.doOutput = false
 
             val responseCode = httpURLConnection.responseCode
             Log.i("RESPONSE", responseCode.toString())

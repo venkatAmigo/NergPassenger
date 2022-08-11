@@ -12,8 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import androidx.core.widget.doOnTextChanged
 import com.example.nergpassenger.api.Api
 import com.google.android.material.textfield.TextInputEditText
@@ -27,6 +26,7 @@ import java.util.*
 class ProfileFragment : Fragment() {
     var valid = false
     var personalValid = false
+    var cardTypeSelected = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +36,32 @@ class ProfileFragment : Fragment() {
         val givenNameEt = view.findViewById<TextInputLayout>(R.id.given_name_et)
         val familyNameEt = view.findViewById<TextInputLayout>(R.id.family_name_et)
         val birthdate = view.findViewById<TextInputLayout>(R.id.birthdate_et)
+        val signoutButton = view.findViewById<Button>(R.id.sign_out_btn)
+        val spinner = view.findViewById<Spinner>(R.id.cardTypeSpinner)
+        val cardTypes = arrayOf("master","visa", "american express")
+        val arrayAdapter = ArrayAdapter<String>(requireContext(),android.R.layout
+            .simple_spinner_dropdown_item,cardTypes)
+        spinner.adapter = arrayAdapter
+        spinner.setSelection(0,true)
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                personalValid = true
+                cardTypeSelected = cardTypes[p2]
+            }
 
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                personalValid = false
+            }
+
+        }
+        signoutButton.setOnClickListener {
+            val sharedPreferences = requireContext().getSharedPreferences("LOGIN", Context
+                .MODE_PRIVATE)
+            val edit = sharedPreferences.edit()
+            edit.putBoolean(Constants.IS_LOGIN, false).apply()
+            startActivity(Intent(requireContext(),LoginActivity::class.java))
+            activity?.finish()
+        }
         birthdate.setEndIconOnClickListener {
             val calender =  Calendar.getInstance()
             DatePickerDialog(
@@ -46,6 +71,8 @@ class ProfileFragment : Fragment() {
                 }, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH),calender.get
                     (Calendar.DAY_OF_MONTH)).show()
         }
+
+
         val cardEt = view.findViewById<TextInputLayout>(R.id.cardnumber_et)
         val codeEt = view.findViewById<TextInputLayout>(R.id.security_code_et)
         val expirationEt = view.findViewById<TextInputLayout>(R.id.expiration_et)
@@ -107,7 +134,7 @@ class ProfileFragment : Fragment() {
                 Thread {
                     val response = accessToken?.let { it1 ->
                         Api.updatePaymentDetails(
-                            "master",
+                            cardTypeSelected,
                             cardEt.editText?.text.toString(),
                             expirationEt.editText?.text.toString(),
                             codeEt.editText?.text.toString(),

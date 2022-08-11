@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.adapter = PagerAdapter(supportFragmentManager,lifecycle)
         TabLayoutMediator(binding.tabLt,binding.viewPager){
             tab,position->
-            tab.text="Hello"
             if(position==0)
                 tab.text = "Tickets Info"
             else
