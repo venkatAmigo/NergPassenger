@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_mint_green"
     tools:context=".TicketInfoDeskActivity">
 
     <TextView
@@ -81,7 +82,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Arrival Time" />
+
     </RadioGroup>
+
+    <EditText
+        android:id="@+id/timeEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="hh:mm:ss"
+        android:padding="10dp"
+        android:background="@drawable/bordered_rect_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="571dp" />
 
     <Button
         android:id="@+id/goto_con_btn"
@@ -92,7 +109,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/timeEt" />
 
     <Button
         android:id="@+id/sign_out_btn"

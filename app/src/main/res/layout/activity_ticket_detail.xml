@@ -1,21 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="match_parent"
+    android:background="@color/background_mint_green"
+    tools:context=".TicketDetailActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/nerg_logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/heading_lbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ticket Details"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView2" />
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/ticket_card"
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardElevation="4dp"
         app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/heading_lbl"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -57,49 +77,50 @@
                 app:layout_constraintTop_toTopOf="@id/origin_tv" />
 
             <TextView
-                android:id="@+id/dept_time_tv"
+                android:id="@+id/date_lbl_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="Date"
                 android:textColor="@color/black"
-                app:layout_constraintEnd_toStartOf="@+id/arrival_time_tv"
+                app:layout_constraintEnd_toStartOf="@+id/date_tv"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/origin_tv" />
 
             <TextView
-                android:id="@+id/arrival_time_tv"
+                android:id="@+id/date_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/dept_time_tv"
-                app:layout_constraintTop_toTopOf="@id/dept_time_tv" />
+                app:layout_constraintStart_toEndOf="@+id/date_lbl_tv"
+                app:layout_constraintTop_toTopOf="@id/date_lbl_tv" />
             <TextView
-                android:id="@+id/delay_lbl_tv"
+                android:id="@+id/pass_lbl_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delay at Destination"
+                android:text="No of passengers"
                 android:textColor="@color/black"
-                app:layout_constraintEnd_toStartOf="@+id/delay_tv"
+                app:layout_constraintEnd_toStartOf="@+id/pass_tv"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/arrival_time_tv" />
+                app:layout_constraintTop_toBottomOf="@id/date_lbl_tv" />
 
             <TextView
-                android:id="@+id/delay_tv"
+                android:id="@+id/pass_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/delay_lbl_tv"
-                app:layout_constraintTop_toTopOf="@id/delay_lbl_tv" />
+                app:layout_constraintStart_toEndOf="@+id/pass_lbl_tv"
+                app:layout_constraintTop_toTopOf="@id/pass_lbl_tv" />
+
             <TextView
                 android:id="@+id/seats_lbl_tv"
                 android:layout_width="wrap_content"
@@ -110,7 +131,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/delay_lbl_tv" />
+                app:layout_constraintTop_toBottomOf="@id/pass_lbl_tv" />
 
             <TextView
                 android:id="@+id/seats_tv"
@@ -123,6 +144,31 @@
                 app:layout_constraintStart_toEndOf="@+id/seats_lbl_tv"
                 app:layout_constraintTop_toTopOf="@id/seats_lbl_tv" />
 
+            <TextView
+                android:id="@+id/no_reservation_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Seat reservation is possible"
+                android:textColor="@color/alert"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/seats_tv"
+                app:layout_constraintStart_toStartOf="parent" />
+            <Spinner
+                android:id="@+id/railcar_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/no_reservation_tv"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/seats_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/railcar_spinner"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

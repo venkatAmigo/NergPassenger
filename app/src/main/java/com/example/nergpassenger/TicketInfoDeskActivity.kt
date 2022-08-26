@@ -95,10 +95,12 @@ class TicketInfoDeskActivity : AppCompatActivity() ,OnMapReadyCallback, GoogleMa
         }
 
         binding.gotoConBtn.setOnClickListener {
+            val time = binding.timeEt.text.toString()
             val intent  = Intent(this,TicketCOnnectionActivity::class.java)
             intent.putExtra("ORIGIN",stationCodesMap[origin])
             intent.putExtra("DEST",stationCodesMap[dest])
             intent.putExtra("ARR_OT_DEPT",arDepTime)
+            intent.putExtra("TIME",time)
             startActivity(intent)
         }
         binding.signOutBtn.setOnClickListener {

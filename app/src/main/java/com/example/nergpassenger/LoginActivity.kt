@@ -21,9 +21,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.register.setOnClickListener {
-            startActivity(Intent(this,RegistrationActivity::class.java))
-        }
         fieldValidation()
         binding.loginBtn.setOnClickListener {
             val username = binding.usernameTl.editText?.text.toString()
@@ -37,35 +34,10 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
-    fun startTimer(){
-        object:CountDownTimer(10000,1000){
-            override fun onFinish() {
-                binding.loginBtn.isEnabled = true
-                binding.timerTv.visibility = View.GONE
-                binding.waitForTv.visibility = View.GONE
-                val sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE)
-                val edit = sharedPreferences.edit()
-                edit.putInt("FAILED_COUNT",0).apply()
-                counter = 10
-            }
-            override fun onTick(p0: Long) {
-                val seconds = "$counter Seconds"
-                binding.timerTv.text=  seconds
-                counter --
-            }
-        }.start()
-    }
     fun loginUser(username:String, password:String){
         val sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE)
         val edit = sharedPreferences.edit()
         val failedCount = sharedPreferences.getInt("FAILED_COUNT",0)
-        if(failedCount >= 3){
-            startTimer()
-            binding.loginBtn.isEnabled = false
-            binding.timerTv.visibility = View.VISIBLE
-            binding.waitForTv.visibility = View.VISIBLE
-
-        }else {
             Thread {
                 val response = Api.login(username, password)
                 if (response != "INVALID") {
@@ -74,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
                     edit.putBoolean(Constants.IS_LOGIN, true)
                     edit.putString(Constants.ACCESS_TOKEN, accessToken)
                     edit.apply()
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this,TicketsActivity::class.java))
                 } else {
                     edit.putInt("FAILED_COUNT", failedCount + 1).apply()
                     Handler(mainLooper).post {
@@ -82,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }.start()
-        }
     }
     fun fieldValidation() {
         binding.pwdTl.editText?.doOnTextChanged { text, start, before, count ->

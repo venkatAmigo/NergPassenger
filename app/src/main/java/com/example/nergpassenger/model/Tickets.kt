@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 class Tickets : ArrayList<Ticket>()
 
 @Serializable
-data class Ticket(
+data class Ticket (
     val ticketNumber: String,
     val bookedAt: String,
     val travelDate: String,
@@ -62,11 +62,19 @@ data class Station(
 )
 @Serializable
 data class Connection(
-    val trainNumber: String
+    val trainNumber: String,
+    val stops: List<Stop>?=null
 )
 @Serializable
 data class SeatReservations(
     val id: Int,
     val railroadCarNumber: Int,
     val seatNumber: String,
+)
+@Serializable
+data class Stop(
+    val id: Int,
+    val time: String,
+    val delayInMinutes: Int,
+    val station: Station
 )

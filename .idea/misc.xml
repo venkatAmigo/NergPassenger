@@ -7,12 +7,21 @@
         <entry key="app/src/main/res/drawable/round_rect_bg.xml" value="0.217" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/activity_new_login.xml" value="0.32608695652173914" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/activity_seat_reserve.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3116714477539063" />
-        <entry key="app/src/main/res/layout/activity_ticket_info_desk.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/activity_ticket_connection.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/activity_ticket_detail.xml" value="0.2391499837239583" />
+        <entry key="app/src/main/res/layout/activity_ticket_info_desk.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_tickets.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/activity_travel_booking.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/connections_item.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/fragment_tickets.xml" value="0.22552083333333334" />
+        <entry key="app/src/main/res/layout/passenger_item.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/railcar_seat_item.xml" value="0.17447916666666666" />
         <entry key="app/src/main/res/layout/ticket_item.xml" value="0.22447916666666667" />
       </map>
     </option>
