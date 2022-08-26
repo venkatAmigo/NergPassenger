@@ -74,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
                     edit.putBoolean(Constants.IS_LOGIN, true)
                     edit.putString(Constants.ACCESS_TOKEN, accessToken)
                     edit.apply()
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, TicketsActivity::class.java))
                 } else {
                     edit.putInt("FAILED_COUNT", failedCount + 1).apply()
                     Handler(mainLooper).post {

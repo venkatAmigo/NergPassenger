@@ -15,21 +15,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NergPassenger"
         android:usesCleartextTraffic="true"
+        android:configChanges="orientation|screenSize|screenLayout"
         tools:targetApi="31">
+        <activity
+            android:name=".TicketDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TicketsActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".TravelBookingActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".TicketCOnnectionActivity"
             android:exported="false" />
-        <!--
-             TODO: Before you run your application, you need a Google Maps API key.
 
-             To get one, follow the directions here:
-
-                https://developers.google.com/maps/documentation/android-sdk/get-api-key
-
-             Once you have your API key (it starts with "AIza"), define a new property in your
-             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
-             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDAij8udxU7bDwXVJYLzAPg7Bkq-qsxCZA" />
@@ -48,6 +49,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -30,10 +30,9 @@ class SplashActivity : AppCompatActivity() {
         accessToken?.let { Log.i("token", it) }
         Handler(mainLooper).postDelayed({
             if (isLogin) {
-                startActivity(Intent(this, TicketInfoDeskActivity::class.java))
+                startActivity(Intent(this, TicketsActivity::class.java))
                 finish()
-            }
-            else {
+            } else {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
